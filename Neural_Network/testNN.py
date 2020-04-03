@@ -1,7 +1,9 @@
 import nn
 import time
 import numpy as np
-# from plotting import myplot, myfigshow
+import sys
+sys.path.append("..")
+from plotting import myplot, myfigshow
 
 def eval_loss(features, beta):
     #return sum((beta-2.0)**2)
