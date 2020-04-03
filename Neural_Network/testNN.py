@@ -1,7 +1,7 @@
 import nn
 import time
 import numpy as np
-from plotting import myplot, myfigshow
+# from plotting import myplot, myfigshow
 
 def eval_loss(features, beta):
     #return sum((beta-2.0)**2)
@@ -74,7 +74,7 @@ if __name__=="__main__":
 
     if fortran_train==True:
 
-        nn.nn.nn_train(network,act_fn_name,loss_fn_name,opt_name,weights,features,beta_target,batch_size,n_epochs,train_fraction,opt_params)
+        nn.nn.nn_train(network,act_fn_name,loss_fn_name,opt_name,weights,features,beta_target,batch_size,n_epochs,train_fraction,opt_params,1)
         print(opt_params)
 
     else:
