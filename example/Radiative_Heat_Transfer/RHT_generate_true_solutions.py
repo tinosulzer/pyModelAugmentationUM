@@ -1,7 +1,8 @@
 import numpy as np
 from subprocess import call
-import adolc as ad
-from plotting import *
+# import adolc as ad
+# from plotting import *
+import matplotlib.pyplot as plt
 
 class RHT_True:
 
@@ -72,10 +73,10 @@ class RHT_True:
 
         if self.plot==True:
 
-            myplot("Temp_prof", self.y, self.T, '-b', 2.0, None)
-            myfig("Temp_prof", "y", "Temperature", "Temperature Profile for Radiative Heat Transfer")
-            myfigshow()
-
+            # myplot("Temp_prof", self.y, self.T, '-b', 2.0, None)
+            # myfig("Temp_prof", "y", "Temperature", "Temperature Profile for Radiative Heat Transfer")
+            # myfigshow()
+            plt.plot(self.y, self.T)
 
 
 
@@ -85,3 +86,4 @@ if __name__=="__main__":
     for T_inf in np.linspace(5.,50.,10):
         rht = RHT_True(T_inf=T_inf, n_iter=100000, tol=1e-13)
         rht.solve()
+    plt.show()

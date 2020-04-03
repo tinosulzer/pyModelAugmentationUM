@@ -1,8 +1,8 @@
 import numpy as np
 from os import path
 from subprocess import call
-import adolc as ad
-from plotting import *
+# import adolc as ad
+# from plotting import *
 import scipy.sparse.linalg as spla
 
 class RHT:
