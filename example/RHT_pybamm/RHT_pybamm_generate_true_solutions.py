@@ -44,8 +44,8 @@ for T_inf in np.linspace(5.0, 50, 10):
     beta_decoupled_final = sol["beta_decoupled"].data[:, -1]
 
     np.savetxt("{}/solution_{}".format(save_folder, T_inf), T_final)
-    # ax.plot(x, T_final, label=T_inf)
-    ax.plot(x, beta_decoupled_final, label=T_inf)
+    ax.plot(x, T_final, label=T_inf)
+    # ax.plot(x, beta_decoupled_final, label=T_inf)
 
 # Once the simulation is terminated, show the results if plot is True
 if plot is True:
