@@ -82,7 +82,7 @@ class RHT:
     def adjoint_solve(self, data):
         if not self.has_obj_and_jac_funs:
             self.create_obj_and_jac_funs(data)
-        
+
         return self.jac_fun(self.beta).full().flatten()
 
     # ----------------------------------------------------------------------------------
@@ -97,13 +97,16 @@ class RHT:
         # Create objective function and derivative
         beta = self.sol.inputs["beta"]
         T = self.T.value({"beta": beta})
-        obj = casadi.sum1((T - data) ** 2) + self.lambda_reg * casadi.sum1((beta - 1.0) ** 2)
+        obj = casadi.sum1((T - data) ** 2) + self.lambda_reg * casadi.sum1(
+            (beta - 1.0) ** 2
+        )
         self.obj_fun = casadi.Function("obj", [beta], [obj])
 
         jac = casadi.jacobian(obj, beta)
         self.jac_fun = casadi.Function("jacfn", [beta], [jac])
 
         self.has_obj_and_jac_funs = True
+
 
 if __name__ == "__main__":
     from scipy.optimize import minimize
@@ -113,7 +116,10 @@ if __name__ == "__main__":
     #     rht.direct_solve()
 
     # Try using scipy.minimize
-    rht = RHT(T_inf=10, savesol=False, plot=False, lambda_reg=10)
+    npoints = 129
+    rht = RHT(T_inf=10, savesol=False, plot=False, lambda_reg=1, npoints=npoints)
+    x = np.linspace(0,1,129)
+    rht.beta = 1 + 0.1 * np.sin(x)
     rht.direct_solve()
     data = rht.direct_solve()
 
@@ -126,9 +132,9 @@ if __name__ == "__main__":
         return rht.adjoint_solve(data)
 
     timer = pybamm.Timer()
-    sol = minimize(objective, [1.1]*129)
+    sol = minimize(objective, [1.1] * 129)
     print("Without jac: ", timer.time())
     timer.reset()
-    sol = minimize(objective, [1.1]*129, jac=jac)
+    sol = minimize(objective, [1.1] * 129, jac=jac)
     print("With jac: ", timer.time())
     # print(sol)

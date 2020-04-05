@@ -11,20 +11,6 @@ plot = True
 tol = 1e-9
 n_points = 129
 
-# Define model
-model = RHTModel()
-
-# Define settings
-parameter_values = model.default_parameter_values
-parameter_values.update({"T_inf": "[input]", "beta": 1})
-var_pts = {model.x: n_points}
-solver = pybamm.CasadiAlgebraicSolver(tol=tol)
-t_eval = np.array([0, 1])
-
-# Create simulation
-sim = pybamm.Simulation(
-    model, parameter_values=parameter_values, solver=solver, var_pts=var_pts
-)
 
 # Prepare plotting and saving
 save_folder = "example/RHT_pybamm/True_solutions"
@@ -35,7 +21,20 @@ ax.set_ylabel("Temperature")
 
 # Solve for various T_inf
 for T_inf in np.linspace(5.0, 50, 10):
-    # print(T_inf)
+    # Define model
+    model = RHTModel()
+
+    # Define settings
+    parameter_values = model.default_parameter_values
+    parameter_values.update({"T_inf": T_inf})
+    var_pts = {model.x: n_points}
+    solver = pybamm.CasadiAlgebraicSolver(tol=tol)
+    t_eval = np.array([0, 1])
+
+    # Create simulation
+    sim = pybamm.Simulation(
+        model, parameter_values=parameter_values, solver=solver, var_pts=var_pts
+    )
     sim.solve(t_eval, inputs={"T_inf": T_inf})
     sol = sim.solution
 

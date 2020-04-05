@@ -100,13 +100,13 @@ if __name__ == "__main__":
     true_model = RHTModel()
     true_model.name = "True RHT"
     parameter_values = true_model.default_parameter_values
-    parameter_values["T_inf"] = 10
+    parameter_values["T_inf"] = 45
     sim_true = pybamm.Simulation(true_model, parameter_values=parameter_values)
 
     base_model = RHTModel()
     base_model.name = "Base RHT"
     parameter_values = base_model.default_parameter_values
-    parameter_values["T_inf"] = 10
+    parameter_values["T_inf"] = 45
     parameter_values["beta"] = 1
     sim_base = pybamm.Simulation(base_model, parameter_values=parameter_values)
 
